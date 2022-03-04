@@ -1,5 +1,15 @@
 from Progress_Bar import ProgressBar
 
+# How this module would be imported from a file outside of it
+#   from Terminal_Progress_Bar import Progress_Bar
+# 
+# How to create a new progress bar
+#   bar = Progress_Bar.create_progress_bar()
+# 
+# Can be simplified
+#   from Terminal_Progress_Bar import Progress_Bar as Bar
+#   bar = Bar.create_progress_bar()
+
 def _example_function(num):
     """
     An example function to help with the driver example. Adds the given amount of numbers, N times, to a list, to give the program enough code to cause a visible stall, so that the change in the progess bar can be easily observed.
