@@ -56,8 +56,6 @@ def driver_example():
     _example_function(12)
     bar.add_percent(-12)
 
-    print("Test interruption")
-
     #Changes the symbol that is used to fill the progress bar
     bar.symbol = "X"
     bar.empty_symbol = "_"
