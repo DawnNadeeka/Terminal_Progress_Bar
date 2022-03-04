@@ -1,4 +1,6 @@
+from tokenize import String
 from Progress_Bar import ProgressBar
+from String_Progress_Bar import StringBar
 
 # How this module would be imported from a file outside of it
 #   from Terminal_Progress_Bar import Progress_Bar
@@ -82,6 +84,15 @@ def driver_example():
         bar.add_percent(10)
     except PermissionError as e:
         print(f"   - {e}")
+
+    #Bar initialized with a character length of 100 and a percent of 50%
+    bar = ProgressBar(100, 50)
+    bar.show()
+    bar.end()
+
+    #The StringBar class, a simplified version of the progress bar that cannot be editied but compiles the entire progress bar into one string
+    bar = StringBar(30, 15)
+    print(bar.to_string())
 
 driver_example()
 print("Finished demonstration.")

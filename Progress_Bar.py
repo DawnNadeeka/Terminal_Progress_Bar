@@ -41,8 +41,8 @@ class ProgressBar():
             raise ValueError("bar_length must be a positive integer")
         self.bar_length = bar_length 
 
-        if percent < -100 or percent > 100:
-            raise ValueError("percent must be a decimal between -100 and 100")
+        if percent < 0 or percent > 100:
+            raise ValueError("percent must be a decimal between 0 and 100")
         self.percent = percent
         
         #Default symbols
@@ -230,6 +230,12 @@ class ProgressBar():
         self.bar = self.bar.replace(self.divider, divider)
         self._divider = divider
     
+    def get_percent(self):
+        """
+        Getter for the current percent of the progress bar
+        """
+
+        return self.percent
     #endregion
 
     def show(self):
@@ -248,8 +254,8 @@ class ProgressBar():
         if self._bar_displayed:
             return
 
-        print(f"{self._replace_symbols()}\n") #Divider bar, the same length as the progress bar
-        print(f"   {self.bar} - 0.0%", end="\r") #Progress bar
+        self._print_bar(f"{self._replace_symbols()}\n") #Divider bar, the same length as the progress bar
+        self._print_bar(f"   {self.bar} - 0.0%", True) #Progress bar
         self._bar_displayed = True
 
     def add_percent(self, percent):
@@ -291,7 +297,14 @@ class ProgressBar():
         if not self._bar_displayed:
             self.show()
 
-        print(f"   {self.bar} - {round(float(self.percent), 2)}%", end="\r") #Prints progress bar plus percentage, writing over the previous bar
+        self._print_bar(f"   {self.bar} - {round(float(self.percent), 2)}%", True) #Prints progress bar plus percentage, writing over the previous bar
+
+    def _print_bar(self, message, end=False):
+        if end == True:
+            end="\r"
+            print(message, end=end)
+        else:
+            print(message)
 
     def end(self):
         """
@@ -302,7 +315,7 @@ class ProgressBar():
         if not self._is_open:
             return
 
-        print(f"\n\n{self._replace_symbols()}\n") #Divider bar, the same length as the progress bar
+        self._print_bar(f"\n\n{self._replace_symbols()}\n") #Divider bar, the same length as the progress bar
         self._is_open = False
     
     def _replace_symbols(self):
